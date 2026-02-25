@@ -39,7 +39,7 @@ async function groupMultiple(
 ): Promise<void> {
   const tabIds = tabs
     .map((t) => t.id)
-    .filter((id): id is number => id !== undefined);
+    .filter((id): id is number => id !== undefined) as [number, ...number[]];
 
   if (tabIds.length < 2) return;
 
@@ -48,18 +48,20 @@ async function groupMultiple(
     (t) => (t.groupId ?? UNGROUPED) !== UNGROUPED,
   )?.groupId;
 
-  let groupId: number;
+  let groupId: number | undefined;
 
   try {
     if (existingGroupId !== undefined && existingGroupId !== UNGROUPED) {
-      groupId = await chrome.tabs.group({ groupId: existingGroupId, tabIds });
+      groupId = (await chrome.tabs.group({ groupId: existingGroupId, tabIds })) ?? existingGroupId;
     } else {
-      groupId = await chrome.tabs.group({ tabIds });
+      groupId = await chrome.tabs.group({ tabIds }) ?? undefined;
     }
   } catch {
     // Tabs may have closed or moved — abort silently.
     return;
   }
+
+  if (groupId === undefined) return;
 
   const title = humanReadableTitleFromDomain(domainKey);
 
