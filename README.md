@@ -1,6 +1,10 @@
 # Tab Constellation
 
-A Chrome Manifest V3 extension that automatically groups tabs by domain. No UI, no configuration — it runs silently in the background and keeps your tab strip organized.
+<img src="icons/icon-128.png" width="96" alt="Tab Constellation icon" />
+
+An opinionated Chrome extension designed to group tabs by domain.
+
+No UI, no configuration — it runs silently in the background and keeps your tab strip organized. 
 
 **Rule:** If 2 or more tabs in a window share the same domain, they belong in one tab group. If only 1 tab remains for a domain, it gets ungrouped automatically.
 
