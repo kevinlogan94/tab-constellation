@@ -1,6 +1,6 @@
 # Tab Constellation
 
-<img src="icons/icon-128.png" width="96" alt="Tab Constellation icon" />
+<img src="assets/banner.png" alt="Tab Constellation banner" />
 
 An opinionated Chrome extension designed to group tabs by domain.
 
@@ -69,6 +69,13 @@ tab-constellation/
 ├── package.json
 ├── tsconfig.json
 ├── .prettierrc
+├── icons/              # Packaged with the extension (referenced by manifest.json)
+│   ├── icon-16.png
+│   ├── icon-32.png
+│   ├── icon-48.png
+│   └── icon-128.png
+├── assets/             # Repo and store artwork — not packaged into the extension
+│   └── banner.png
 ├── src/
 │   ├── background.ts   # Event wiring (onInstalled, onStartup, onUpdated, onRemoved)
 │   ├── domain.ts       # getDomainKey() and humanReadableTitleFromDomain()
