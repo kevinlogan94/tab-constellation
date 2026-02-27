@@ -7,7 +7,7 @@
     "48": "icons/icon-48.png",
     "128": "icons/icon-128.png"
   },
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Automatically groups your tabs into constellations by domain, keeping your browser tidy without effort.",
   "permissions": ["tabs", "tabGroups"],
   "host_permissions": ["<all_urls>"],
