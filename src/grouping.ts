@@ -52,9 +52,9 @@ async function groupMultiple(
 
   try {
     if (existingGroupId !== undefined && existingGroupId !== UNGROUPED) {
-      groupId = (await chrome.tabs.group({ groupId: existingGroupId, tabIds })) ?? existingGroupId;
+      groupId = await chrome.tabs.group({ groupId: existingGroupId, tabIds });
     } else {
-      groupId = await chrome.tabs.group({ tabIds }) ?? undefined;
+      groupId = await chrome.tabs.group({ tabIds });
     }
   } catch {
     // Tabs may have closed or moved — abort silently.
@@ -64,6 +64,7 @@ async function groupMultiple(
   if (groupId === undefined) return;
 
   const title = humanReadableTitleFromDomain(domainKey);
+  console.log(`[TC] groupMultiple: setting groupId=${groupId} title="${title}"`);
 
   try {
     await chrome.tabGroups.update(groupId, { title, color: 'grey' });
