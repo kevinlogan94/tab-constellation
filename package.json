@@ -1,6 +1,6 @@
 {
   "name": "tab-constellation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Automatically groups your tabs into constellations by domain.",
   "private": true,
   "scripts": {
