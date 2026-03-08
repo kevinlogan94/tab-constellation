@@ -1,7 +1,7 @@
 import { applyGroupingForWindow } from './grouping.js';
 import { scheduleWindowGrouping } from './debounce.js';
 
-const DEBOUNCE_MS = 1000;
+const DEBOUNCE_MS = 300;
 
 async function applyGroupingForAllWindows(): Promise<void> {
   const windows = await chrome.windows.getAll();
@@ -33,6 +33,10 @@ chrome.tabs.onRemoved.addListener((_, removeInfo) => {
   scheduleWindowGrouping(removeInfo.windowId, DEBOUNCE_MS, applyGroupingForWindow);
 });
 
+chrome.tabs.onActivated.addListener((activeInfo) => {
+  scheduleWindowGrouping(activeInfo.windowId, DEBOUNCE_MS, applyGroupingForWindow);
+});
+
 chrome.tabs.onAttached.addListener((_, attachInfo) => {
   scheduleWindowGrouping(attachInfo.newWindowId, DEBOUNCE_MS, applyGroupingForWindow);
 });
@@ -41,6 +45,14 @@ chrome.tabs.onDetached.addListener((_, detachInfo) => {
   scheduleWindowGrouping(detachInfo.oldWindowId, DEBOUNCE_MS, applyGroupingForWindow);
 });
 
+chrome.tabGroups.onCreated.addListener((group) => {
+  scheduleWindowGrouping(group.windowId, DEBOUNCE_MS, applyGroupingForWindow);
+});
+
 chrome.tabGroups.onRemoved.addListener((group) => {
   scheduleWindowGrouping(group.windowId, DEBOUNCE_MS, applyGroupingForWindow);
+});
+
+chrome.windows.onRemoved.addListener((windowId) => {
+  scheduleWindowGrouping(windowId, DEBOUNCE_MS, applyGroupingForWindow);
 });

@@ -64,12 +64,11 @@ async function groupMultiple(
   if (groupId === undefined) return;
 
   const title = humanReadableTitleFromDomain(domainKey);
-  console.log(`[TC] groupMultiple: setting groupId=${groupId} title="${title}"`);
 
   try {
     await chrome.tabGroups.update(groupId, { title, color: 'grey' });
-  } catch {
-    // Group may no longer exist — safe to ignore.
+  } catch (err) {
+    console.warn(`[TC] tabGroups.update failed for group ${groupId}:`, err);
   }
 }
 
