@@ -94,3 +94,9 @@ tab-constellation/
 | Tab is pinned | Ignored entirely |
 | Tab is not HTTPS | Ignored entirely |
 | Browser starts up / extension installs | Full grouping pass over all windows |
+
+## Known Chrome issue (tab group visuals)
+
+In Chrome/Chromium **145**, there is a browser bug where tab group titles and colors sometimes do not appear until the group is clicked. Tab Constellation’s grouping logic still runs correctly; this is a **Chrome rendering issue**, not an extension bug. The issue is fixed in **146.0.7647.0** and later (see the fixing CL [7489953](https://chromium-review.googlesource.com/c/chromium/src/+/7489953)); it will not be backported to 145. You can track Chrome’s release schedule at [chromiumdash](https://chromiumdash.appspot.com/schedule) and switch to the 146+ channel if you want the fix before it reaches stable.
+
+The full issue is documented [here](https://issues.chromium.org/issues/483537691)
