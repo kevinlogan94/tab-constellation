@@ -2,7 +2,7 @@
 
 <img src="assets/banner.png" alt="Tab Constellation banner" />
 
-Tab Constellation is intentionally opinionated. There's one rule, no settings, and no UI. It's built for people who want their tabs organized, not another tool to manage.
+An opinionated Chrome extension that groups tabs by domain, automatically, with zero setup or configuration.
 
 **The rule:** If 2 or more tabs share the same domain, they get grouped. If a domain drops to 1 tab, it gets ungrouped. That's it.
 

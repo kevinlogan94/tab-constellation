@@ -8,7 +8,7 @@
     "128": "icons/icon-128.png"
   },
   "version": "1.0.1",
-  "description": "Automatically groups your tabs into constellations by domain, keeping your browser tidy without effort.",
+  "description": "An opinionated Chrome extension that groups tabs by domain, automatically, with zero setup or configuration.",
   "permissions": ["tabs", "tabGroups"],
   "host_permissions": ["<all_urls>"],
   "background": {

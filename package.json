@@ -1,7 +1,7 @@
 {
   "name": "tab-constellation",
   "version": "1.0.1",
-  "description": "Automatically groups your tabs into constellations by domain.",
+  "description": "An opinionated Chrome extension that groups tabs by domain, automatically, with zero setup or configuration.",
   "private": true,
   "scripts": {
     "build": "tsc",
