@@ -43,12 +43,17 @@ async function groupMultiple(
 
   if (tabIds.length < 2) return;
 
-  // Reuse the first existing group found among the tabs.
-  const existingGroupId = tabs.find(
-    (t) => (t.groupId ?? UNGROUPED) !== UNGROUPED,
-  )?.groupId;
+  // Find an existing group, but only if ALL tabs are already in the SAME group.
+  // This prevents cross-domain group contamination when a new tab is created
+  // in an existing group but navigates to a different domain.
+  const groupIds = new Set(
+    tabs
+      .map((t) => t.groupId ?? UNGROUPED)
+      .filter((id) => id !== UNGROUPED)
+  );
 
   let groupId: number | undefined;
+  const existingGroupId = groupIds.size === 1 ? Array.from(groupIds)[0] : undefined;
 
   try {
     if (existingGroupId !== undefined && existingGroupId !== UNGROUPED) {
