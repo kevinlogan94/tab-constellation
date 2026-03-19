@@ -3,6 +3,10 @@ import { scheduleWindowGrouping } from './debounce.js';
 
 const DEBOUNCE_MS = 300;
 
+/**
+ * Applies tab grouping to all open browser windows.
+ * @returns {Promise<void>}
+ */
 async function applyGroupingForAllWindows(): Promise<void> {
   const windows = await chrome.windows.getAll();
   for (const win of windows) {

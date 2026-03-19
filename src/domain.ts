@@ -18,6 +18,11 @@ const BRAND_TITLES: Record<string, string> = {
 
 const IP_PATTERN = /^\d{1,3}\.\d{1,3}$/;
 
+/**
+ * Extracts the effective top-level domain plus one (eTLD+1) from a given URL.
+ * @param {string | undefined} url - The URL to extract the domain key from
+ * @returns {string | null} The eTLD+1 (e.g., "github.com") or null if invalid or non-HTTPS
+ */
 export function getDomainKey(url: string | undefined): string | null {
   if (!url) return null;
 
@@ -52,6 +57,12 @@ export function getDomainKey(url: string | undefined): string | null {
   return etld1;
 }
 
+/**
+ * Converts a domain key into a human-readable title.
+ * Uses a predefined mapping for well-known brands, or capitalizes the domain label.
+ * @param {string} domainKey - The domain key (e.g., "github.com")
+ * @returns {string} A human-readable title (e.g., "GitHub")
+ */
 export function humanReadableTitleFromDomain(domainKey: string): string {
   const label = domainKey.split('.')[0] ?? domainKey;
 

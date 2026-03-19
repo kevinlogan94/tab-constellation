@@ -2,6 +2,12 @@ import { getDomainKey, humanReadableTitleFromDomain } from './domain.js';
 
 const UNGROUPED = chrome.tabGroups.TAB_GROUP_ID_NONE;
 
+/**
+ * Builds a map of domain keys to their associated tabs.
+ * Excludes pinned tabs and tabs without a valid domain key.
+ * @param {chrome.tabs.Tab[]} tabs - The array of tabs to process
+ * @returns {Map<string, chrome.tabs.Tab[]>} A map where keys are domain keys and values are arrays of tabs
+ */
 function buildDomainMap(tabs: chrome.tabs.Tab[]): Map<string, chrome.tabs.Tab[]> {
   const map = new Map<string, chrome.tabs.Tab[]>();
 
@@ -22,6 +28,12 @@ function buildDomainMap(tabs: chrome.tabs.Tab[]): Map<string, chrome.tabs.Tab[]>
   return map;
 }
 
+/**
+ * Removes a single tab from its group if it is currently grouped.
+ * Safely handles cases where the tab may have closed or been ungrouped already.
+ * @param {chrome.tabs.Tab} tab - The tab to ungroup
+ * @returns {Promise<void>}
+ */
 async function ungroupSingle(tab: chrome.tabs.Tab): Promise<void> {
   if (tab.id === undefined) return;
   if ((tab.groupId ?? UNGROUPED) === UNGROUPED) return;
@@ -33,6 +45,13 @@ async function ungroupSingle(tab: chrome.tabs.Tab): Promise<void> {
   }
 }
 
+/**
+ * Groups multiple tabs together by domain and updates the group with a title and color.
+ * Reuses existing groups only if all tabs are already in the same group to prevent cross-domain contamination.
+ * @param {chrome.tabs.Tab[]} tabs - The tabs to group together
+ * @param {string} domainKey - The domain key for the group
+ * @returns {Promise<void>}
+ */
 async function groupMultiple(
   tabs: chrome.tabs.Tab[],
   domainKey: string,
@@ -77,6 +96,12 @@ async function groupMultiple(
   }
 }
 
+/**
+ * Applies domain-based tab grouping to all tabs in a specified browser window.
+ * Tabs from the same domain are grouped together, and single tabs are ungrouped.
+ * @param {number} windowId - The ID of the window to apply grouping to
+ * @returns {Promise<void>}
+ */
 export async function applyGroupingForWindow(windowId: number): Promise<void> {
   let tabs: chrome.tabs.Tab[];
 
